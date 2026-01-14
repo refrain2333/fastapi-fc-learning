@@ -4,7 +4,7 @@ access: "本地使用"
 
 vars: 
   region: "cn-hongkong" 
-  functionName: "fastapi-debian12-stage" 
+  functionName: "fastapi-debian12-py312" 
 
 resources:
   fastapi_func:
@@ -16,8 +16,10 @@ resources:
     props:
       region: ${vars.region}
       functionName: ${vars.functionName}
-      description: 'FastAPI On Debian 12 (Web Server Mode)'
+      description: 'FastAPI On Debian 12 + Python 3.12 Layer'
       runtime: custom.debian12
+      layers:
+        - acs:fc:cn-hongkong:official:layers/Python312/versions/1
       code: ./
       timeout: 60
       memorySize: 512
@@ -26,12 +28,13 @@ resources:
       instanceConcurrency: 10
       customRuntimeConfig: 
         command:
-          - python3
+          - /opt/python3.12/bin/python3
         args:
           - main.py 
         port: 9000
       environmentVariables:
-        PYTHONPATH: /code/python
+        PYTHONPATH: /code/python:/opt/python3.12/lib/python3.12/site-packages
+        PATH: /opt/python3.12/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
         TZ: Asia/Shanghai
       triggers:
         - triggerName: httpTrigger
