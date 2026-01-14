@@ -1,0 +1,13 @@
+[project]
+name = "fastapi-fc-app"
+version = "0.1.0"
+description = "FastAPI on Function Compute Learning with uv"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi",
+    "uvicorn",
+]
+
+[tool.uv]
+dev-dependencies = []

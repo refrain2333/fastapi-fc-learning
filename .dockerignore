@@ -1,0 +1,19 @@
+# 忽略本地虚拟环境
+.venv/
+.s/
+.git/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 忽略本地生成的依赖库（如果有的话）
+fastapi/
+uvicorn/
+pydantic/
+starlette/
+anyio/
+
+# 忽略日志和文档
+*.log
+README.md
