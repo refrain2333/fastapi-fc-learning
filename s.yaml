@@ -4,7 +4,7 @@ access: "本地使用"
 
 vars: 
   region: "cn-hongkong" 
-  functionName: "fastapi-debian12-hk" 
+  functionName: "fastapi-debian12-stage" 
 
 resources:
   fastapi_func:
