@@ -1,39 +1,44 @@
-# 阿里云 Serverless Devs 配置文件
-edition: 1.0.0
+edition: 3.0.0
 name: fastapi-fc-app
+access: "本地使用" 
 
-services:
-  fastapi-service:
-    component: fc
+vars: 
+  region: "cn-beijing" 
+  functionName: "fastapi-debian12" 
+  memorySize: 512
+
+resources:
+  fastapi_func:
+    component: fc3
     actions:
       pre-deploy:
-        - run: uv export --format requirements-txt > requirements.txt
+        - run: uv export --format requirements-txt --no-hashes > requirements.txt
+          path: ./
+        - run: pip install -r requirements.txt -t python
           path: ./
     props:
-      region: cn-hongkong
-      service:
-        name: fc-learning
-        description: 'FastAPI 容器化学习项目'
-      function:
-        name: fastapi-func
-        description: '使用 Docker 容器部署的 FastAPI'
-        runtime: custom-container # 关键：切换为容器运行时
-        codeUri: ./ # 指向包含 Dockerfile 的目录
-        memorySize: 512 # 容器运行建议给到 512MB 以上，启动更稳
-        timeout: 60
-        caPort: 9000
-        customContainerConfig:
-          # 注意：这里的 image 地址需要替换为你自己的阿里云容器镜像仓库地址
-          # 格式：registry.cn-hongkong.aliyuncs.com/<命名空间>/<仓库名>:<标签>
-          image: "registry.cn-hongkong.aliyuncs.com/fc-learning/fastapi-app:v1"
+      region: ${vars.region}
+      functionName: ${vars.functionName}
+      description: 'FastAPI On Function Compute (Debian 12)'
+      runtime: custom.debian12
+      code: ./
+      timeout: 60
+      memorySize: ${vars.memorySize}
+      cpu: 0.5
+      diskSize: 512
+      instanceConcurrency: 10
+      customRuntimeConfig: 
+        command:
+          - python3
+        args:
+          - main.py 
+        port: 9000
+      environmentVariables:
+        PYTHONPATH: /code/python
+        TZ: Asia/Shanghai
       triggers:
-        - name: httpTrigger
-          type: http
-          config:
+        - triggerName: httpTrigger
+          triggerType: http
+          triggerConfig:
             authType: anonymous
-            methods: [GET, POST, PUT, DELETE]
-      customDomains:
-        - domainName: auto
-          protocol: HTTP
-          routeConfigs:
-            - path: /*
+            methods: [GET, POST, PUT, DELETE, OPTIONS]
