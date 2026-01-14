@@ -3,8 +3,8 @@ name: fastapi-fc-app
 access: "本地使用" 
 
 vars: 
-  region: "cn-beijing" 
-  functionName: "fastapi-debian12-final" 
+  region: "cn-hongkong" 
+  functionName: "fastapi-debian12-hk" 
 
 resources:
   fastapi_func:
