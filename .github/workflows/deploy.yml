@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12' # 与 pyproject.toml 保持一致
+          python-version: '3.11' # 匹配 Debian 12 的 Python 版本
 
       - name: Install Dependencies
         run: |

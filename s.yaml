@@ -4,8 +4,7 @@ access: "本地使用"
 
 vars: 
   region: "cn-beijing" 
-  functionName: "fastapi-fixed-312" 
-  memorySize: 512
+  functionName: "fastapi-debian12-final" 
 
 resources:
   fastapi_func:
@@ -17,15 +16,20 @@ resources:
     props:
       region: ${vars.region}
       functionName: ${vars.functionName}
-      description: 'FastAPI On Function Compute (Native Python 3.12)'
-      runtime: python3.12
-      handler: app.main.handler
+      description: 'FastAPI On Debian 12 (Web Server Mode)'
+      runtime: custom.debian12
       code: ./
       timeout: 60
-      memorySize: ${vars.memorySize}
+      memorySize: 512
       cpu: 0.5
       diskSize: 512
       instanceConcurrency: 10
+      customRuntimeConfig: 
+        command:
+          - python3
+        args:
+          - main.py 
+        port: 9000
       environmentVariables:
         PYTHONPATH: /code/python
         TZ: Asia/Shanghai
