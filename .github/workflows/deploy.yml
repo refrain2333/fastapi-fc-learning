@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12' # 确保构建环境与云端层版本一致
+          python-version: '3.12' # 全链路对齐到 3.12
 
       - name: Install Dependencies
         run: |
