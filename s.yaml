@@ -4,7 +4,7 @@ access: "本地使用"
 
 vars: 
   region: "cn-hongkong" 
-  functionName: "fastapi-debian12-py312" 
+  functionName: "fastapi-debian11-py312" 
 
 resources:
   fastapi_func:
@@ -16,8 +16,8 @@ resources:
     props:
       region: ${vars.region}
       functionName: ${vars.functionName}
-      description: 'FastAPI On Debian 12 + Python 3.12 Layer'
-      runtime: custom.debian12
+      description: 'FastAPI On Debian 11 + Python 3.12 Layer'
+      runtime: custom.debian11
       layers:
         - acs:fc:cn-hongkong:official:layers/Python312/versions/1
       code: ./
