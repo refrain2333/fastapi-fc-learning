@@ -37,6 +37,6 @@ jobs:
           ALIBABA_CLOUD_ACCOUNT_ID: ${{ secrets.ALIBABA_CLOUD_ACCOUNT_ID }}
         run: |
           # 配置阿里云密钥
-          s config add --AccessKeyID ${ALIBABA_CLOUD_ACCESS_KEY_ID} --AccessKeySecret ${ALIBABA_CLOUD_ACCESS_KEY_SECRET} --AccountID ${ALIBABA_CLOUD_ACCOUNT_ID} --AliasName 本地使用
+          s config add -a 本地使用 --AccessKeyID ${ALIBABA_CLOUD_ACCESS_KEY_ID} --AccessKeySecret ${ALIBABA_CLOUD_ACCESS_KEY_SECRET} --AccountID ${ALIBABA_CLOUD_ACCOUNT_ID} -f
           # 执行部署
           s deploy --use-local -y
